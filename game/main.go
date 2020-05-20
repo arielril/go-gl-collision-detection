@@ -47,6 +47,9 @@ func Init() {
 	tx = 5
 	ty = 5
 	alpha = 0
+
+	// show menu
+	printMenu()
 }
 
 // TurnShowLines turn on or off the lines in the display
@@ -115,10 +118,10 @@ func Display(w *glfw.Window) {
 		}
 		newTime := glfw.GetTime()
 
-		fmt.Printf("nT %v, bT %v = %v\n", newTime, baseTime, (newTime-baseTime)/1000)
+		// fmt.Printf("nT %v, bT %v = %v\n", newTime, baseTime, (newTime-baseTime)/1000)
 
 		fpsVal := qtdFrames / (newTime - baseTime)
-		fmt.Printf("qtd %v / sub %v = %v\n", qtdFrames, (newTime - baseTime), fpsVal)
+		// fmt.Printf("qtd %v / sub %v = %v\n", qtdFrames, (newTime - baseTime), fpsVal)
 
 		fmt.Printf("%v FPS.\n", fpsVal)
 		shouldShowFps = false

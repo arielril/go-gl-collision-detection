@@ -98,3 +98,8 @@ func displayScenario() {
 	}
 	gl.PopMatrix()
 }
+
+func printMenu() {
+	fmt.Println("f - imprime FPS.")
+	fmt.Println("ESPACO - liga/desliga teste de colisao.")
+}

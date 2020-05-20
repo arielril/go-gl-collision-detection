@@ -1,8 +1,6 @@
 package game
 
 import (
-	"fmt"
-
 	"github.com/go-gl/gl/v2.1/gl"
 )
 
@@ -37,7 +35,7 @@ func GenerateLine() Line {
 	x2 := float32(rnd.Int31()%100) / 10
 	y2 := float32(rnd.Int31()%100) / 10
 
-	fmt.Printf("Line: (%v, %v) (%v, %v)\n", x1, y1, x2, y2)
+	// fmt.Printf("Line: (%v, %v) (%v, %v)\n", x1, y1, x2, y2)
 
 	return NewLine(x1, y1, x2, y2)
 }
@@ -50,7 +48,7 @@ func GenerateSmallLine() Line {
 	deltaX := float32(rnd.Int31()%100)/50 - 1
 	deltaY := float32(rnd.Int31()%100)/50 - 1
 
-	fmt.Printf("Line: (%v, %v) (%v, %v)\n", x1, y1, x1+deltaX, y1+deltaY)
+	// fmt.Printf("Line: (%v, %v) (%v, %v)\n", x1, y1, x1+deltaX, y1+deltaY)
 
 	return NewLine(x1, y1, x1+deltaX, y1+deltaY)
 }
