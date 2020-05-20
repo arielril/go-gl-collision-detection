@@ -3,7 +3,7 @@ SOURCEDIR=.
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOMOD=$(GOCMD) mod
-GOBUILDVAR=CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+GOBUILDVAR_MACOS=GOOS=darwin GOARCH=amd64
 BINARY?=gogl
 BINARY_PATH=$(SOURCEDIR)/main.go
 
@@ -23,3 +23,6 @@ download:
 
 clean: 
 	rm -f $(BINARY)
+
+build-mac: clean
+	${GOBUILDVAR_MACOS} $(GOBUILD) -o ${BINARY} $(BINARY_PATH)

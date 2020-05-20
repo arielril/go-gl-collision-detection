@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	wWidth  = 800
-	wHeight = 600
+	wWidth  = 600
+	wHeight = 500
 )
 
 func init() {
@@ -28,7 +28,7 @@ func init() {
 }
 
 func main() {
-	win, _ := opengl.NewWindow(wWidth, wHeight, "Space Invaders")
+	win, _ := opengl.NewWindow(wWidth, wHeight, "Cálculo de colisão.")
 	defer glfw.Terminate()
 
 	win.SetKeyCallback(opengl.KeyCallback)
