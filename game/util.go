@@ -1,5 +1,7 @@
 package game
 
+import "fmt"
+
 // Intersec2D Compute the intersection between 2 lines
 /* ********************************************************************** */
 /*                                                                        */
@@ -45,4 +47,24 @@ func HasIntersection(k, l, m, n Point) bool {
 	}
 
 	return false
+}
+
+// TurnShowLines turn on or off the lines in the display
+func TurnShowLines() {
+	shouldShowLines = !shouldShowLines
+}
+
+// ShowFps turn on or off the FPS count
+func ShowFps() {
+	shouldShowFps = true
+}
+
+// TurnShouldTest turn on or off the intersection test
+func TurnShouldTest() {
+	shouldTest = !shouldTest
+	if shouldTest {
+		fmt.Println("Interceccao LIGADA.")
+	} else {
+		fmt.Println("Interceccao DESLIGADA.")
+	}
 }
