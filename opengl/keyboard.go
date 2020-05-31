@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-gl/glfw/v3.3/glfw"
 
-	"github.com/arielril/basic-go-gl/game"
+	"github.com/arielril/go-gl-collision-detection/game"
 )
 
 // KeyCallback is a callback function for key strikes

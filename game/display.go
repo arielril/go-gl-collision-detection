@@ -5,7 +5,8 @@ import (
 
 	"github.com/go-gl/gl/v2.1/gl"
 
-	"github.com/arielril/basic-go-gl/util"
+	"github.com/arielril/go-gl-collision-detection/objects"
+	"github.com/arielril/go-gl-collision-detection/util"
 )
 
 var fps util.FPS
@@ -18,33 +19,26 @@ func displayFps() {
 	}
 }
 
-func instantiatePoint(p Point) Point {
-	pV := p.Get()
-
-	// []gl.FLOAT => GLfloat[]
-	newPoint := make([]float32, 4)
-	var matrixGL [4][4]float32
-
-	gl.GetFloatv(gl.MODELVIEW_MATRIX, &matrixGL[0][0])
-
-	for i := range newPoint {
-		newPoint[i] = matrixGL[0][i]*pV.x +
-			matrixGL[1][i]*pV.y +
-			matrixGL[2][i]*pV.z +
-			matrixGL[3][i]
+func displayLines() {
+	gl.LineWidth(2)
+	for _, l := range lines {
+		gl.PushMatrix()
+		{
+			if l.Get().Collision {
+				gl.Color3f(1, 0, 0)
+			} else {
+				gl.Color3f(0, 1, 0)
+			}
+			l.Draw()
+		}
+		gl.PopMatrix()
 	}
-
-	return NewPoint(newPoint[0], newPoint[1], newPoint[2])
 }
 
 func displayScenario() {
-	var p1 Point
-	var p2 Point
-
-	var pa Point
-	var pb Point
-
-	temp := NewPoint(0, 0, 0)
+	var p1 objects.Point
+	var p2 objects.Point
+	temp := objects.NewPoint2D(0, 0)
 
 	carS := car.Get()
 
@@ -52,44 +46,24 @@ func displayScenario() {
 	{
 		gl.Translatef(tx, ty, 0)
 		gl.Rotatef(alpha, 0, 0, 1)
-		temp.Set(carS.x1, carS.y1)
-		p1 = instantiatePoint(temp)
 
-		temp.Set(carS.x2, carS.y2)
-		p2 = instantiatePoint(temp)
+		temp.Set2DPoint(carS.Pa)
+		p1 = temp.Clone()
 
+		temp.Set2DPoint(carS.Pb)
+		p2 = temp.Clone()
 	}
 	gl.PopMatrix()
 
-	gl.LineWidth(1)
-	gl.Color3f(1, 1, 0)
-
-	for i := 0; i < maxLines; i++ {
-		if shouldTest {
-			lineV := lines[i].Get()
-
-			temp.Set(lineV.x1, lineV.y1)
-			pa = instantiatePoint(temp)
-
-			temp.Set(lineV.x2, lineV.y2)
-			pb = instantiatePoint(temp)
-
-			if HasIntersection(pa, pb, p1, p2) {
-				gl.Color3f(1, 0, 0)
-			} else {
-				gl.Color3f(0, 1, 0)
-			}
-		} else {
-			gl.Color3f(0, 1, 0)
-		}
-
-		if shouldShowLines {
-			lines[i].Draw()
-		}
+	if shouldTest {
+		// realCarLine := objects.NewLineFromPoints(p1, p2)
+		collisionStructure.Collide(
+			objects.NewLineFromPoints(p1, p2),
+		)
 	}
 
 	gl.Color3f(1, 0, 1)
-	gl.LineWidth(3)
+	gl.LineWidth(5)
 	gl.PushMatrix()
 	{
 		gl.Translatef(tx, ty, 0)

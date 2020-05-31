@@ -1,3 +1,5 @@
+github.com/arielril/basic-go-gl v0.0.0-20200519223719-1e13a2611fec h1:NIUEfNvf//diVbbekTdrFcevqUpmKKHZZT483C+dPiA=
+github.com/arielril/basic-go-gl v0.0.0-20200519223719-1e13a2611fec/go.mod h1:lH/cOwxCBlC+Q7CsPuXqO36yTE+qX+gJjXtpe1EBs2I=
 github.com/go-gl/gl v0.0.0-20190320180904-bf2b1f2f34d7 h1:SCYMcCJ89LjRGwEa0tRluNRiMjZHalQZrVrvTbPh+qw=
 github.com/go-gl/gl v0.0.0-20190320180904-bf2b1f2f34d7/go.mod h1:482civXOzJJCPzJ4ZOX/pwvXBWSnzD4OKMdH4ClKGbk=
 github.com/go-gl/glfw v0.0.0-20200420212212-258d9bec320e h1:d/6iiszw8nt7mrUmkD/zaMj2I4mOcKYsxmkL+vTGWYc=

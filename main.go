@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/arielril/basic-go-gl/game"
-	"github.com/arielril/basic-go-gl/opengl"
+	"github.com/arielril/go-gl-collision-detection/game"
+	"github.com/arielril/go-gl-collision-detection/opengl"
 
 	glfw "github.com/go-gl/glfw/v3.3/glfw"
 )
