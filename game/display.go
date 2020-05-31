@@ -56,7 +56,6 @@ func displayScenario() {
 	gl.PopMatrix()
 
 	if shouldTest {
-		// realCarLine := objects.NewLineFromPoints(p1, p2)
 		collisionStructure.Collide(
 			objects.NewLineFromPoints(p1, p2),
 		)
