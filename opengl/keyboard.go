@@ -59,5 +59,11 @@ func CharCallback(w *glfw.Window, char rune) {
 		game.ShowFps()
 		fmt.Println("Comecou a contar...")
 		break
+	case 'b':
+		game.ToggleRunBenchmark()
+		break
+	case 'h':
+		game.ShowMenu()
+		break
 	}
 }

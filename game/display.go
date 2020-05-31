@@ -4,12 +4,11 @@ import (
 	"fmt"
 
 	"github.com/go-gl/gl/v2.1/gl"
+	"github.com/go-gl/glfw/v3.3/glfw"
 
+	"github.com/arielril/go-gl-collision-detection/collision"
 	"github.com/arielril/go-gl-collision-detection/objects"
-	"github.com/arielril/go-gl-collision-detection/util"
 )
-
-var fps util.FPS
 
 func displayFps() {
 	acc := fps.SetFPS().GetAccumulated()
@@ -33,6 +32,18 @@ func displayLines() {
 		}
 		gl.PopMatrix()
 	}
+}
+
+func displayCar() {
+	gl.Color3f(1, 0, 1)
+	gl.LineWidth(5)
+	gl.PushMatrix()
+	{
+		gl.Translatef(tx, ty, 0)
+		gl.Rotatef(alpha, 0, 0, 1)
+		car.Draw()
+	}
+	gl.PopMatrix()
 }
 
 func displayScenario() {
@@ -61,18 +72,41 @@ func displayScenario() {
 		)
 	}
 
-	gl.Color3f(1, 0, 1)
-	gl.LineWidth(5)
-	gl.PushMatrix()
-	{
-		gl.Translatef(tx, ty, 0)
-		gl.Rotatef(alpha, 0, 0, 1)
-		car.Draw()
+	if shouldShowLines {
+		displayLines()
 	}
-	gl.PopMatrix()
+
+	displayCar()
 }
 
-func printMenu() {
-	fmt.Println("f - imprime FPS.")
-	fmt.Println("ESPACO - liga/desliga teste de colisao.")
+// Display the game
+func Display(w *glfw.Window) {
+	gl.Clear(gl.COLOR_BUFFER_BIT)
+	gl.MatrixMode(gl.MODELVIEW)
+	gl.LoadIdentity()
+
+	resetLinesCollision()
+
+	if shouldShowFps {
+		baseTime := glfw.GetTime()
+
+		for i := 0; i < qtdFrames; i++ {
+			if i+1 >= qtdFrames {
+				collision.SetShowQtdCellsTested(true)
+			}
+			displayScenario()
+		}
+		collision.SetShowQtdCellsTested(false)
+
+		newTime := glfw.GetTime()
+		fpsVal := qtdFrames / (newTime - baseTime)
+
+		fmt.Printf("%v FPS.\n", fpsVal)
+		shouldShowFps = false
+	} else if shouldRunBenchmark {
+		RunBenchmark()
+		shouldRunBenchmark = false
+	} else {
+		displayScenario()
+	}
 }

@@ -1,0 +1,17 @@
+#!/usr/bin/env gnuplot -c
+
+# Show usage information if no argument is present
+if (strlen(ARG1) < 1) print "Usage: " . ARG0 . " file.txt"; exit
+
+set terminal qt persist
+
+set datafile separator comma
+
+set title 'Benchmark'
+
+set xlabel '#lines'
+set ylabel 'FPS'
+
+set style data line
+
+plot for [i=3:4] ARG1 using i:xtic(1) title columnheader linewidth 4

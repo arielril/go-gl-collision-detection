@@ -20,6 +20,19 @@ type line struct {
 	Collision bool
 }
 
+type LineSizeType string
+
+type lineSize struct {
+	Small  LineSizeType
+	Normal LineSizeType
+}
+
+// LineSize of the lines
+var LineSize = &lineSize{
+	Small:  "small",
+	Normal: "normal",
+}
+
 func newLine(x1, y1, x2, y2 float32) Line {
 	pa := NewPoint(x1, y1, 0)
 	pb := NewPoint(x2, y2, 0)
@@ -92,8 +105,12 @@ func (l *line) Get() *line {
 	return l
 }
 
-// GenerateLine create a normal sized line
-func GenerateLine(rnd *rand.Rand) Line {
+// GenerateLine create a line based on the size
+func GenerateLine(rnd *rand.Rand, ls LineSizeType) Line {
+	if ls == LineSize.Small {
+		return _generateSmallLine(rnd)
+	}
+
 	x1 := float32(rnd.Int31()%100) / 10
 	y1 := float32(rnd.Int31()%100) / 10
 	x2 := float32(rnd.Int31()%100) / 10
@@ -104,8 +121,7 @@ func GenerateLine(rnd *rand.Rand) Line {
 	return newLine(x1, y1, x2, y2)
 }
 
-// GenerateSmallLine create a small line
-func GenerateSmallLine(rnd *rand.Rand) Line {
+func _generateSmallLine(rnd *rand.Rand) Line {
 	x1 := float32(rnd.Int31()%90) / 10
 	y1 := float32(rnd.Int31()%90) / 10
 
