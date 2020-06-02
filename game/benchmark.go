@@ -151,22 +151,20 @@ func _saveBenchmarkResultCSV(bbr [][]*result) {
 		return
 	}
 
-	// [[], []]
-	size := len(bbr[0])
-	for i := 0; i < size; i++ {
-		nLines := bbr[0][i].nLines
-		hSplit := bbr[0][i].hSplit
-		vSplit := bbr[0][i].vSplit
+	for _, br := range bbr {
+		for _, r := range br {
+			nLines := r.nLines
+			hSplit := r.hSplit
+			vSplit := r.vSplit
 
-		var dummyRes float64
-		var subspaceRes float64
+			var dummyRes float64
+			var subspaceRes float64
 
-		for _, br := range bbr {
-			if br[i].cType == collision.Provider.Me {
-				subspaceRes = br[i].fps
+			if r.cType == collision.Provider.Me {
+				subspaceRes = r.fps
 			}
-			if br[i].cType == collision.Provider.Professor {
-				dummyRes = br[i].fps
+			if r.cType == collision.Provider.Professor {
+				dummyRes = r.fps
 			}
 
 			s := fmt.Sprintf("%d,'%d-%d',%.4f,%.4f\n", nLines, hSplit, vSplit, dummyRes, subspaceRes)
